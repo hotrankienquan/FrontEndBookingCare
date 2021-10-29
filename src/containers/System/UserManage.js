@@ -1,9 +1,9 @@
-import { divide } from 'lodash';
+// import { divide } from 'lodash';
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers } from '../../services/userService';
+import { getAllUsers, createNewUser } from '../../services/userService';
 import ModalUser from './ModalUser';
 class UserManage extends Component {
     // ham constructor dai dien cho class
@@ -15,6 +15,9 @@ class UserManage extends Component {
         }
     }
     async componentDidMount() {
+        await this.getAllUserFromReact();
+    }
+    getAllUserFromReact = async () => {
         let response = await getAllUsers('All');
         if (response && response.errCode === 0) {
             this.setState({
@@ -48,6 +51,25 @@ class UserManage extends Component {
             isOpenModalUser: !this.state.isOpenModalUser
         })
     }
+    createNewUser = async (data) => {
+        // alert('call me');
+        try {
+
+            let response = await createNewUser(data);
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage);
+            } else {
+                await this.getAllUserFromReact();
+                this.setState({
+                    isOpenModalUser: false
+                })
+            }
+            // console.log('check respponse create new user', response);
+        } catch (error) {
+            console.log(error)
+        }
+        console.log('check data from child ', data)
+    }
     render() {
         // console.log('check render', this.state);
         let arrUsers = this.state.arrUsers;
@@ -59,6 +81,8 @@ class UserManage extends Component {
                         'abc'
                     }
                     toggleFromParent={this.toggleUserModal}
+                    createNewUser={this.createNewUser}
+                // ko dc them nhu nay  createNewUser={this.createNewUser()}
                 />
                 <div className='title text-center'>manage users with kq</div>
                 <div className='mx-1'>
@@ -73,31 +97,32 @@ class UserManage extends Component {
                 </div>
                 <div className='users-table mt-3 mx-1'>
                     <table id="customers">
-                        <tr>
-                            <th>Email</th>
-                            <th>FirstName</th>
-                            <th>LastName</th>
-                            <th>Address</th>
-                            <th>Actions</th>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>Email</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>Address</th>
+                                <th>Actions</th>
+                            </tr>
 
-                        {
-                            arrUsers && arrUsers.map((item, index) => {
-                                return (
-                                    <tr>
-                                        <td>{item.email}</td>
-                                        <td>{item.firstName}</td>
-                                        <td>{item.lastName}</td>
-                                        <td>{item.address}</td>
-                                        <td>
-                                            <button className='btn-edit'><i className="fas fa-pencil-alt"></i></button>
-                                            <button className='btn-delete'><i class="far fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
-
+                            {
+                                arrUsers && arrUsers.map((item, index) => {
+                                    return (
+                                        <tr>
+                                            <td>{item.email}</td>
+                                            <td>{item.firstName}</td>
+                                            <td>{item.lastName}</td>
+                                            <td>{item.address}</td>
+                                            <td>
+                                                <button className='btn-edit'><i className="fas fa-pencil-alt"></i></button>
+                                                <button className='btn-delete'><i class="far fa-trash-alt"></i></button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
 
                     </table>
                 </div>
