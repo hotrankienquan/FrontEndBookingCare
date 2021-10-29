@@ -4,11 +4,14 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
 import { getAllUsers } from '../../services/userService';
+import ModalUser from './ModalUser';
 class UserManage extends Component {
+    // ham constructor dai dien cho class
     constructor(props) {
         super(props);
         this.state = {
-            arrUsers: []
+            arrUsers: [],
+            isOpenModalUser: false
         }
     }
     async componentDidMount() {
@@ -29,15 +32,45 @@ class UserManage extends Component {
      * 2. did mount (set state)
      * 3. render
      * mỗi lần setState thì nó sẽ tự re-render
+     * mounted hieu nhu la born
+     * unmounted hieu nhu la die
      * 
      */
-
+    // cac function handle event dung arrow function
+    handleAddNewUser = () => {
+        // alert('click me');
+        this.setState({
+            isOpenModalUser: true
+        })
+    }
+    toggleUserModal = () => {
+        this.setState({
+            isOpenModalUser: !this.state.isOpenModalUser
+        })
+    }
     render() {
         // console.log('check render', this.state);
         let arrUsers = this.state.arrUsers;
         return (
             <div className="users-container">
+                <ModalUser
+                    isOpen={this.state.isOpenModalUser}
+                    text={
+                        'abc'
+                    }
+                    toggleFromParent={this.toggleUserModal}
+                />
                 <div className='title text-center'>manage users with kq</div>
+                <div className='mx-1'>
+                    <button className='btn btn-primary px-3'
+                        /**
+                         * cach 2
+                         * onClick={this.handleNewUser(bind, this)}
+                         */
+                        onClick={() => this.handleAddNewUser()}
+                    >Add new users</button>
+
+                </div>
                 <div className='users-table mt-3 mx-1'>
                     <table id="customers">
                         <tr>
