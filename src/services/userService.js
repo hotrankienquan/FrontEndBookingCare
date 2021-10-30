@@ -8,4 +8,15 @@ const getAllUsers = (inputId) => {
 const createNewUser = (data) => {
 	return axios.post('/api/create-new-user', data);
 }
-export { handleLoginApi, getAllUsers, createNewUser }
+const deleteUserService = (userId) => {
+	// return axios.delete('/api/delete-user', { id: userId })
+	return axios.delete("/api/delete-user", {
+		// headers: {
+		//   Authorization: `Bearer ${token}`,
+		// },
+		data: {
+			id: userId
+		},
+	})
+}
+export { handleLoginApi, getAllUsers, createNewUser, deleteUserService }

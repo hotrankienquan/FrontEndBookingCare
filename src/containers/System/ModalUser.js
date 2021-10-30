@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { emitter } from '../../utils/emitter';
 class ModalUser extends Component {
 
 	constructor(props) {
@@ -14,8 +15,24 @@ class ModalUser extends Component {
 			address: ''
 		}
 		// this.state.email = this.state['email'] 2 cach viet tuong tu
+		this.listenToEmitter();
+	}
+	// thz con hứng event bên thz cha truyền : emitter.on , còn bên tz cha là emitter.emit
+	listenToEmitter = () => {
+		emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
+			// console.log('listen emitter from parent', data)
+			//reset state
+			this.setState({
+				email: '',
+				password: '',
+				firstName: '',
+				lastName: '',
+				address: ''
+			})
+		})
 	}
 	componentDidMount() {
+		console.log('mounting modal')
 	}
 	toggle = () => {
 		this.props.toggleFromParent();
