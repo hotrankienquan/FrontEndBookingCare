@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomeHeader.scss';
 import { FormattedMessage } from 'react-intl';
+import { LANGUAGES } from '../../utils';
+import { changeLanguageApp } from '../../store/actions';
 class HomeHeader extends Component {
+	changeLanguage = (language) => {
+		// alert(language);
+		//fire redux event: actions
+		this.props.changeLanguageAppRedux(language)
 
+	}
 	render() {
 
-		console.log('check props', this.props);
+		// console.log('check props', this.props);
+		let language = this.props.language;
 
 		return (
 			<>
@@ -39,11 +47,15 @@ class HomeHeader extends Component {
 						</div>
 						<div className='right-content'>
 							<div className='support'><i className="fas fa-question-circle"></i>hỗ trợ</div>
-							<div className='language-vi active'>VN</div>
-							<div className='language-en active'>EN</div>
+							<div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}>
+								<span onClick={() => this.changeLanguage(LANGUAGES.VI)} > VN</span>
+							</div>
+							<div className={language === LANGUAGES.EN ? 'language-en active' : 'language-en'}>
+								<span onClick={() => this.changeLanguage(LANGUAGES.EN)} > EN</span>
+							</div>
 						</div>
 					</div>
-				</div>
+				</div >
 				<div className='home-header-banner'>
 					<div className='content-up'>
 						<div className='title1'>
@@ -102,6 +114,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language))
 	};
 };
 

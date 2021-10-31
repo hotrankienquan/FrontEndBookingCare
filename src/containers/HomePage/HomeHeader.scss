@@ -66,21 +66,34 @@
 			}
 
 			.language-vi {
-				cursor: pointer;
+				cursor : pointer;
+				opacity: 0.2;
 
 				&.active {
-					color: orange;
+					color    : orange;
+					font-size: 25px;
+					opacity  : 1;
+				}
 
+				&:hover {
+					opacity: 1;
 				}
 			}
 
 			.language-en {
+				opacity: 0.2;
 				padding: 0 10px;
 				cursor : pointer;
 
 				//dau & : viet class ngang cap
 				&.active {
-					color: blue;
+					color    : blue;
+					font-size: 25px;
+					opacity  : 1;
+				}
+
+				&:hover {
+					opacity: 1;
 				}
 			}
 		}
