@@ -1,4 +1,17 @@
 {
+    "homeheader": {
+        "specility": "Specialty"
+    },
+    "banner": {
+        "title1": "Communication medical",
+        "title2": "Comprehensive health care",
+        "child1": "Specialized examination",
+        "child2": "Remote examination",
+        "child3": "General examination",
+        "child4": "Medical test",
+        "child5": "Mental health",
+        "child6": "Dental examination"
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",
