@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import {getAllCodeService} from '../../../services/userService';
+// import {getAllCodeService} from '../../../services/userService';
 import {LANGUAGES} from '../../../utils';
+import * as actions from '../../../store/actions';
 class UserRedux extends Component {
 
     constructor(props) {
@@ -13,26 +14,41 @@ class UserRedux extends Component {
     }
 
     async componentDidMount() {
-        try {
-           let response = await getAllCodeService('gender');
-           // errCode chứ ko phải errorCode
-           if(response && response.errCode === 0) {
+        this.props.getGenderStart();
+        //cach 2
+        // this.props.dispatch(actions.getGenderStart())
+
+
+        // try {
+        //    let response = await getAllCodeService('gender');
+        //    // errCode chứ ko phải errorCode
+        //    if(response && response.errCode === 0) {
                 
-               this.setState({
-                   genderArr: response.data
-               })
-           }
-           console.log('check response' ,response)
-        } catch (e) {
-            console.log(e)
+        //        this.setState({
+        //            genderArr: response.data
+        //        })
+        //    }
+        //    console.log('check response' ,response)
+        // } catch (e) {
+        //     console.log(e)
+        // }
+    }
+    componentDidUpdate(prevProps, prevState, snapshot){
+        // hiện tại(this) và quá khứ (previous)
+        // render => didupdate
+        // quá khứ là mảng rỗng [], hiện tại  [3] 3 phần tử
+        if(prevProps.genderRedux !== this.props.genderRedux){
+            this.setState({
+                genderArr: this.props.genderRedux
+            })
         }
     }
-
 
     render() {
         // console.log('check state', this.state);
         let genders = this.state.genderArr;
         let language = this.props.language;
+        console.log('check props from redux', this.props.genderRedux)
         return (
             <div className='user-redux-container'>
                 <div className='title'>
@@ -114,13 +130,19 @@ class UserRedux extends Component {
 
 const mapStateToProps = state => {
     return {
-		language: state.app.language
-
+        // state là của thz redux, truy cập đến app của bên rootReducer
+        // -> biến language trong appReducer
+		language: state.app.language,
+        genderRedux: state.admin.genders
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        //fire event cua redux 
+        getGenderStart: () =>dispatch(actions.fetchGenderStart())
+        // processLogout: () => dispatch(actions.processLogout()),
+        // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
     };
 };
 
