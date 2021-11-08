@@ -24,4 +24,8 @@ const editUserService = (inputData) => {
 	// inputData frontend truyen vo data ben backend
 
 }
-export { handleLoginApi, getAllUsers, createNewUser, deleteUserService, editUserService }
+const getAllCodeService = (inputType) => {
+	return axios.get(`/api/allcode?type=${inputType}`);
+
+}
+export { handleLoginApi, getAllUsers, createNewUser, deleteUserService, editUserService, getAllCodeService }
