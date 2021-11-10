@@ -24,7 +24,10 @@ const actionTypes = Object.freeze({
     ,
     // XU LI CREATE USER TRONG USER REDUX
     CREATE_USER_SUCCESS: 'CREATE_USER_SUCCESS',
-    CREATE_USER_FAILED:'CREATE_USER_FAILED'
+    CREATE_USER_FAILED:'CREATE_USER_FAILED',
+    // xu li read usser trong usser redux
+    FETCH_ALL_USER_SUCCESS: 'FETCH_ALL_USER_SUCCESS',
+    FETCH_ALL_USER_FAILED: 'FETCH_ALL_USER_FAILED'
 })
 
 export default actionTypes;
