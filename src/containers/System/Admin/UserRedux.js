@@ -80,7 +80,21 @@ class UserRedux extends Component {
                 position:arrPositions && arrPositions.length > 0? arrPositions[0].key: ''
             })
         }
-       
+        // check prevprops xoá dữ liệu trong form sau khi tạo user thành công
+       if(prevProps.listUsers !== this.props.listUsers){
+           this.setState({
+            email: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+            address: '',
+            gender: ''
+            ,position:'',
+            role: '',
+            avatar: ''
+           })
+       }
     }
     handleOnchangeImage = (event) => {
         let data =event.target.files;
@@ -118,6 +132,12 @@ class UserRedux extends Component {
 					roleId: this.state.role,
 					positionId: this.state.position
         })
+        // khi fire hàm này thì nó sẽ chạy vô admin reducer update lại
+        // settimeout đợi nó lưu xún db rồi mớI action render lại
+        // setTimeout(() => {
+
+        //     this.props.fetchUserRedux();
+        // }, 1000)
     }
     checkValidateInput = () => {
         let isValid =true;
@@ -285,7 +305,7 @@ class UserRedux extends Component {
                                 onClick={() => this.handleSaveUser()}
                                 >lưu</button>
                             </div>
-                            <div className='col-12'>
+                            <div className='col-12 mb-5'>
                                 <TableManageUser />
                             </div>
                         </div>
@@ -315,7 +335,11 @@ const mapStateToProps = state => {
         genderRedux: state.admin.genders,
         isLoadingGender:state.admin.isLoadingGender,
         roleRedux: state.admin.roles,
-        positionRedux: state.admin.positions
+        positionRedux: state.admin.positions,
+
+
+		listUsers: state.admin.users
+
     };
 };
 // ket noi redux va react
@@ -328,7 +352,9 @@ const mapDispatchToProps = dispatch => {
 
 
         getRoleStart: () =>dispatch(actions.fetchRoleStart()),
-        createNewUser2: (data) => dispatch(actions.createNewUser2(data))
+        createNewUser2: (data) => dispatch(actions.createNewUser2(data)),
+
+        fetchUserRedux: () =>dispatch(actions.fetchAllUserStart()),
 
         // processLogout: () => dispatch(actions.processLogout()),
         // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
