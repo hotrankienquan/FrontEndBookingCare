@@ -7,6 +7,7 @@ import * as actions from '../../../store/actions';
 import'./userRedux.scss';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
+import TableManageUser from './TableManageUser';
 class UserRedux extends Component {
 
     constructor(props) {
@@ -157,8 +158,7 @@ class UserRedux extends Component {
         // console.log('check props from redux', this.props.genderRedux)
 
 
-        let {email, password, firstName, lastName, phoneNumber, address,
-        gender, position, role, avatar} = this.state;
+        let {email, password, firstName, lastName, phoneNumber, address} = this.state;
 
         return (
             <div className='user-redux-container'>
@@ -279,15 +279,19 @@ class UserRedux extends Component {
 
                                 </div>
                             </div>
-                            <div className='col-12 mt-3'>
+                            <div className='col-12 my-3'>
 
-                            <button className='btn btn-primary'
-                            onClick={() => this.handleSaveUser()}
-                            >lưu</button>
+                                <button className='btn btn-primary'
+                                onClick={() => this.handleSaveUser()}
+                                >lưu</button>
+                            </div>
+                            <div className='col-12'>
+                                <TableManageUser />
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 {this.state.isOpen === true && 
                 
                 <Lightbox
