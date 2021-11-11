@@ -31,6 +31,10 @@
             "manage-handbook":"quản lí cẩm nang"
 
         }
+    },
+    "manage-user": {
+        "edit": "Lưu thay đổi",
+        "save": "Lưu user"
     }
     
 }

@@ -28,5 +28,9 @@
             "manage-handbook":"manage handbook"
 
         }
+    },
+    "manage-user": {
+        "edit": "Edit user",
+        "save": "Save user"
     }
 }
