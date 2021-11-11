@@ -23,17 +23,17 @@ class TableManageUser extends Component {
 		}
 	}
 	handleDeleteUser =(user) => {
-		console.log('check user', user)
+		// console.log('check user', user)
 		this.props.deleteAUserRedux(user.id);
 	}
 	handleEditUser  = (user) => {
-		console.log('edit', user)
+		// console.log('edit', user)
 		this.props.handleEditUserFromParentKey(user);
 	}
     render() {
         // let arrUsers = this.state.arrUsers;
-		console.log('check all users', this.props.listUsers)
-		console.log('check state', this.state.usersRedux)
+		// console.log('check all users', this.props.listUsers)
+		// console.log('check state', this.state.usersRedux)
         let arrUsers = this.state.usersRedux;
 		return (
                     <table id="tableManageUser">
