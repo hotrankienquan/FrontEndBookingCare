@@ -32,5 +32,9 @@
     "manage-user": {
         "edit": "Edit user",
         "save": "Save user"
+    },
+    "homepage" : {
+        "outstanding-doctor": "Last week's featured doctor",
+        "more-infor": "More info"
     }
 }

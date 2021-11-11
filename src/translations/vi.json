@@ -35,6 +35,10 @@
     "manage-user": {
         "edit": "Lưu thay đổi",
         "save": "Lưu user"
+    },
+    "homepage" : {
+        "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
+        "more-infor": "Xem thêm"
     }
     
 }
