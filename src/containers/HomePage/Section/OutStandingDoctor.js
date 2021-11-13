@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import Slider from "react-slick";
 import * as actions from '../../../store/actions';
 import {LANGUAGES} from '../../../utils';
+import {withRouter} from 'react-router';
 class OutStandingDoctor extends Component {
 	constructor(props){
 		super(props)
@@ -22,14 +23,20 @@ class OutStandingDoctor extends Component {
 	componentDidMount() {
 		this.props.loadTopDoctors()
 	}
+	handleViewDetailDoctor =(doctor) => {
+		console.log('check view info doct', doctor)
+		this.props.history.push(`/users/${doctor.id}`)
+	}
 	render() {
 
-		console.log(this.props.topDoctorsRedux)
+		// console.log(this.props.topDoctorsRedux)
 		let arrDoctors = this.state.arrDoctors;
 		let {language} = this.props;
 		
 		return (
-			<div className='section-share section-outstanding-doctor'>
+			<div className='section-share section-outstanding-doctor'
+			
+			>
 				<div className='section-container'>
 					<div className='section-header'>
 						<span className='title-section'>
@@ -46,12 +53,12 @@ class OutStandingDoctor extends Component {
 							arrDoctors.map((item, index) => {
 								let imageBase64 = '';
 								if(item.image){
-									imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+									imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
 								}
 								let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
 								let nameEn = `${item.positionData.valueEn}, ${item.lastName} ${item.firstName}`;
 								return (
-									<div className='section-customize'>
+									<div className='section-customize' key={index} onClick={() => this.handleViewDetailDoctor(item)}>
 										<div className='outer-bg'>
 											<div className='bg-image section-outstanding-doctor'
 											style={{backgroundImage: `url(${imageBase64})`}}
@@ -92,4 +99,4 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor));
